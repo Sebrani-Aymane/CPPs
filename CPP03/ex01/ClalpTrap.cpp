@@ -1,3 +1,5 @@
+
+
 #include "ClapTrap.hpp"
 
 ClapTrap::ClapTrap(std::string name) : name(name), hit_points(10), energy_points(10), attack_damage(0)
@@ -8,9 +10,11 @@ ClapTrap::~ClapTrap()
 {
     std::cout << "ClapTrap " << name << " destroyed" << std::endl;
 }
-ClapTrap::ClapTrap(const ClapTrap &other) : name(other.name), hit_points(other.hit_points), energy_points(other.energy_points), attack_damage(other.attack_damage)
+ClapTrap::ClapTrap(const ClapTrap &other)
 {
+   
     std::cout << "ClapTrap " << name << " copied" << std::endl;
+    *this = other;
 }
 ClapTrap &ClapTrap::operator=(const ClapTrap &other)
 {
