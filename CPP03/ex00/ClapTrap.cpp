@@ -6,6 +6,7 @@ ClapTrap::ClapTrap(std::string name)
     this->hit_points = 10;
     this->energy_points = 10;
     this->attack_damage = 0;
+    std::cout<<"default construcor called " << std::endl;
 }
 
 ClapTrap::~ClapTrap()
@@ -15,6 +16,7 @@ ClapTrap::~ClapTrap()
 
 ClapTrap::ClapTrap(const ClapTrap &other)
 {
+    std::cout <<"copy constructor called"<<std::endl;
     *this = other;
 }
 
@@ -24,6 +26,8 @@ ClapTrap &ClapTrap::operator=(const ClapTrap &other)
     this->hit_points = other.hit_points;
     this->energy_points = other.energy_points;
     this->attack_damage = other.attack_damage;
+    std::cout <<"copy assignements overload "<<std::endl;
+
     return *this;
 }
 
