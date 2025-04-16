@@ -19,14 +19,7 @@ WrongCat &WrongCat::operator=(const WrongCat &other)
     return *this;
 }
 
-void WrongCat::setType(std::string type)
-{
-    type = "WrongCat";
-}
-std::string WrongCat::getType() const
-{
-    return(type);
-}
+
 void WrongCat::makeSound()const
 {
     std::cout <<"WrongCat goes Meow Meow!"<<std::endl;
