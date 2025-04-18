@@ -4,21 +4,24 @@
 
 #include <iostream>
 #include "AMateria.hpp"
+#include "ICharacter.hpp"
 
-class ICharacter
+class Character: public ICharacter
 {
     private:
     std::string name;
-public:
-ICharacter(std::string name);
-ICharacter();
-ICharacter(const ICharacter &other);
-ICharacter &operator=(const ICharacter &other);
-virtual ~ICharacter() {}
-virtual std::string const &getName() const = 0;
-virtual void equip(AMateria* m) = 0;
-virtual void unequip(int idx) = 0;
-virtual void use(int idx, ICharacter& target) = 0;
+    AMateria* tools[4];
+    public:
+        Character();
+        Character(const Character &other);
+        Character &operator=(const Character &other);
+        ~Character() {}
+
+        Character(std::string name);
+        std::string const &getName() const ;
+        void equip(AMateria* m);
+        void unequip(int idx);
+        void use(int idx, Character& target);
 };
 
 #endif

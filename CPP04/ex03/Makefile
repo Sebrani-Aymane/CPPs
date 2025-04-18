@@ -3,9 +3,9 @@ CC = c++
 CFLAGS = -Wall -Wextra -Werror -std=c++98
 
 NAME = INTRFRECAP
-INC = AMateria.hpp
+INC = AMateria.hpp Character.hpp Cure.hpp ICharacter.hpp IMateriaSource.hpp Ice.hpp MateriaSource.hpp
 
-SRCS = AMateria.cpp
+SRCS = AMateria.cpp  Character.cpp Cure.cpp Ice.cpp MateriaSource.cpp main.cpp
 
 OBJS = $(SRCS:.cpp=.o)
 
