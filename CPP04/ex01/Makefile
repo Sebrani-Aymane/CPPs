@@ -2,7 +2,7 @@
 CC = c++
 CFLAGS = -Wall -Wextra -Werror -std=c++98
 
-NAME = poly
+NAME = IDWTSTWF
 INC = Animal.hpp Dog.hpp Cat.hpp WrongCat.hpp WrongAnimal.hpp Brain.hpp
 
 SRCS = main.cpp Animal.cpp Cat.cpp Dog.cpp WrongCat.cpp WrongAnimal.cpp Brain.cpp

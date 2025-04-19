@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 04:32:48 by asebrani          #+#    #+#             */
-/*   Updated: 2025/04/15 05:35:01 by asebrani         ###   ########.fr       */
+/*   Updated: 2025/04/19 22:15:47 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ class Brain{
         Brain(const Brain &other);
         ~Brain();
         Brain& operator=(const Brain &other);
+
         void setNewIdea(const std::string new_idea);
 };
 

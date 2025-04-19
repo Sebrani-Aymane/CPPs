@@ -1,14 +1,31 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   Character.cpp                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/19 22:16:39 by asebrani          #+#    #+#             */
+/*   Updated: 2025/04/19 22:16:40 by asebrani         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+
 #include "Character.hpp"
 #include <iostream>
-/*
-defualt charchter
-*/
 
+Character::Character():name("person")
+{for (int i=0;i<4;i++)
+    {
+        tools[i]=NULL;
+    }
+}
 Character::Character(std::string name) : name(name){
     for (int i=0;i<4;i++)
     {
         tools[i]=NULL;
     }
+    
 }
 
 Character::~Character() {
@@ -19,7 +36,7 @@ Character::~Character() {
 
 Character::Character(const Character& other){
 	name=other.name;
-    for (int i = 0; i < 4; ++i) {
+    for (int i = 0; i < 4; i++) {
 
         if (other.tools[i]) {
             tools[i] = other.tools[i]->clone(); 
@@ -33,7 +50,7 @@ Character::Character(const Character& other){
 Character& Character::operator=(const Character& other) {
     if (this != &other) {  
         name = other.name;
-        for (int i = 0; i < 4; ++i) {
+        for (int i = 0; i < 4; i++) {
 			delete tools[i];
             if (other.tools[i]) {
                 tools[i] = other.tools[i]->clone(); 
@@ -57,7 +74,7 @@ void Character::equip(AMateria* m) {
         if(tools[i] == m)
             return;
     }
-    for (int i = 0; i < 4; ++i) {
+    for (int i = 0; i < 4; i++) {
         if (tools[i] == NULL) {
             tools[i] = m;
 

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.cpp                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/19 22:19:20 by asebrani          #+#    #+#             */
+/*   Updated: 2025/04/19 22:19:21 by asebrani         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "AMateria.hpp"
 
 #include "Character.hpp"
@@ -5,15 +17,15 @@
 #include "Ice.hpp"
 #include "Cure.hpp"
 
-void f()
-{
-    system("leaks INTRFRECAP");
-}
+// void f()
+// {
+//     system("leaks INTRFRECAP");
+// }
 int main()
 {
 //     Ice test;
 // //     test.use(*(new Character("name")));
-atexit(f);
+// atexit(f);
 IMateriaSource* src = new MateriaSource();
 src->learnMateria(new Ice());
 src->learnMateria(new Cure());
