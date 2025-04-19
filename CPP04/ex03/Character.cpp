@@ -10,30 +10,33 @@ Character::Character(std::string name) : name(name){
 }
 
 Character::~Character() {
-    for (AMateria* m : tools) {
-        if (m) {
-            delete m;
-        }
-    }
+	for (int i=0;i<4;i++)
+	{
+		if (tools[i])
+			delete tools[i];
+	}
 }
 
 
-Character::Character(const Character& other) : name(other.name), tools({nullptr, nullptr, nullptr, nullptr}) {
+Character::Character(const Character& other){
+	name=other.name;
     for (int i = 0; i < 4; ++i) {
         if (other.tools[i]) {
             tools[i] = other.tools[i]->clone(); 
         }
+		else
+			tools[i]=NULL;
     }
 }
 
 
 Character& Character::operator=(const Character& other) {
     if (this != &other) {  
-        for (AMateria* m : tools) {
-            if (m) {
-                delete m;
-            }
-        }
+		for (int i=0;i<4;i++)
+		{
+			if (tools[i])
+				delete tools[i];
+		}
         name = other.name;
         for (int i = 0; i < 4; ++i) {
             if (other.tools[i]) {
@@ -56,7 +59,7 @@ void Character::equip(AMateria* m) {
     for (int i = 0; i < 4; ++i) {
         if (tools[i] == NULL) {
             tools[i] = m;
-            break; 
+            break;
         }
     }
 }

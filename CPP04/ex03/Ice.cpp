@@ -4,24 +4,24 @@
 
 Ice::Ice() : type("Ice") {
     
-    std::cout << "Ice materia created." << std::endl;
+    //std::cout << "Ice materia created." << std::endl;
 }
 
 Ice::~Ice() {
-    std::cout << "Ice materia destroyed." << std::endl;
+    //std::cout << "Ice materia destroyed." << std::endl;
 }
 
 Ice::Ice(const Ice& other) : AMateria(other) {
 
-    std::cout << "Ice materia copied." << std::endl;
+    //std::cout << "Ice materia copied." << std::endl;
 }
 
 
 Ice& Ice::operator=(const Ice& other) {
     if (this != &other) {
-        AMateria::operator=(other);  
+        this->type=other.type;
     }
-    std::cout << "Ice materia assigned." << std::endl;
+    //std::cout << "Ice materia assigned." << std::endl;
     return *this;
 }
 

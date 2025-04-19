@@ -12,8 +12,8 @@ MateriaSource();
 MateriaSource(const MateriaSource &other);
 MateriaSource &operator=(const MateriaSource &other);
 MateriaSource(std::string const & type);
-learnMateria(AMateria*);
-createMateria(std::string const &)
+void learnMateria(AMateria*);
+AMateria* createMateria(std::string const &);
 };
 
 #endif
