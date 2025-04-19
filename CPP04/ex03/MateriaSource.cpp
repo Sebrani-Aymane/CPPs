@@ -1,6 +1,6 @@
 #include "MateriaSource.hpp"
 
-IMateriaSource::IMateriaSource()
+MateriaSource::MateriaSource()
 {
     for (int i=0;i<4;i++)
         tools[i]=NULL;
@@ -9,24 +9,38 @@ IMateriaSource::IMateriaSource()
 MateriaSource::~MateriaSource()
 {
     for (int i=0;i<4;i++)
-        tools[i]=NULL;
+        delete tools[i];
 }
 
 MateriaSource::MateriaSource(const MateriaSource &other)
 {
     for (int i=0;i<4;i++)
-        tools[i]=other.tools[i];
+    {
+        if(other.tools[i])
+            tools[i]=other.tools[i]->clone();
+    }
 }
 
 MateriaSource& MateriaSource::operator=(const MateriaSource &other)
 {
     for (int i=0;i<4;i++)
-        tools[i]=other.tools[i];
+    {
+        delete tools[i];
+        if(other.tools[i])
+            tools[i]=other.tools[i]->clone();
+        else
+            tools[i] = NULL;
+    }
     return *this;
 }
 
 void MateriaSource::learnMateria(AMateria* m)
 {
+    for(int i = 0; i < 4 ; i++)
+    {
+        if(tools[i] == m)
+            return;
+    }
     for (int i=0;i<4;i++)
     {
         if (tools[i]==NULL)
@@ -41,8 +55,9 @@ AMateria* MateriaSource::createMateria(std::string const & type)
 {
     for (int i=0;i<4;i++)
     {
-        if (tools[i]->getType()==type)
+        if (tools[i] && tools[i]->getType()==type)
             return tools[i]->clone();
+
     }
     return NULL;
 }

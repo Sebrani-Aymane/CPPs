@@ -2,8 +2,8 @@
 
 
 
-Ice::Ice() : type("Ice") {
-    
+Ice::Ice()  {
+    name = "ice";
     //std::cout << "Ice materia created." << std::endl;
 }
 
@@ -12,14 +12,14 @@ Ice::~Ice() {
 }
 
 Ice::Ice(const Ice& other) : AMateria(other) {
-
+    *this = other;
     //std::cout << "Ice materia copied." << std::endl;
 }
 
 
 Ice& Ice::operator=(const Ice& other) {
     if (this != &other) {
-        this->type=other.type;
+        this->name=other.name;
     }
     //std::cout << "Ice materia assigned." << std::endl;
     return *this;
@@ -27,7 +27,7 @@ Ice& Ice::operator=(const Ice& other) {
 
 
 std::string const& Ice::getType() const {
-    return type;  
+    return name;  
 }
 
 

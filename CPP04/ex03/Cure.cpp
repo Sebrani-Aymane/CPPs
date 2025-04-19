@@ -2,8 +2,8 @@
 
 
 
-Cure::Cure() : type("cure") {
-    
+Cure::Cure(){
+    name = "cure";
     //std::cout << "Cure materia created." << std::endl;
 }
 
@@ -12,14 +12,14 @@ Cure::~Cure() {
 }
 
 Cure::Cure(const Cure& other) : AMateria(other) {
-
+    *this = other;
     //std::cout << "Cure materia copied." << std::endl;
 }
 
 
 Cure& Cure::operator=(const Cure& other) {
     if (this != &other) {
-        AMateria::operator=(other);  
+       this->name = other.name;  
     }
     //std::cout << "Cure materia assigned." << std::endl;
     return *this;
@@ -27,7 +27,7 @@ Cure& Cure::operator=(const Cure& other) {
 
 
 std::string const& Cure::getType() const {
-    return type;  
+    return name;  
 }
 
 

@@ -3,17 +3,23 @@
 
 #include "AMateria.hpp"
 #include "IMateriaSource.hpp"
+#include "Character.hpp"
+
 
 
 class MateriaSource : public IMateriaSource
 {
-public:
-MateriaSource();
-MateriaSource(const MateriaSource &other);
-MateriaSource &operator=(const MateriaSource &other);
-MateriaSource(std::string const & type);
-void learnMateria(AMateria*);
-AMateria* createMateria(std::string const &);
+    private:
+        AMateria* tools[4];
+    public:
+        MateriaSource(const MateriaSource &other);
+        MateriaSource();
+        ~MateriaSource();
+        MateriaSource &operator=(const MateriaSource &other);
+
+        MateriaSource(std::string const &type);
+        void learnMateria(AMateria*);
+        AMateria* createMateria(std::string const &);
 };
 
 #endif

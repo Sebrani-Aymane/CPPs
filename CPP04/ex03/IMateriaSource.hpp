@@ -1,6 +1,6 @@
 #ifndef IMATERIASOURCE_HPP
 
-#define IMATERIRASOURCE_HPP
+#define IMATERIASOURCE_HPP
 
 #include "AMateria.hpp"
 #include <iostream>

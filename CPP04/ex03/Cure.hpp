@@ -1,5 +1,5 @@
 #ifndef CURE_HPP
-#define CURE_CPP
+#define CURE_HPP
 
 #include "Character.hpp"
 #include "AMateria.hpp"
@@ -7,8 +7,6 @@
 
 class Cure : public AMateria{
 
-    private : 
-        std::string type;
     public:
     Cure();
     ~Cure();

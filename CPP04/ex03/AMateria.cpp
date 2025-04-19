@@ -20,12 +20,12 @@ AMateria &AMateria::operator=(const AMateria &other)
 }
 
 std::string const& AMateria::getType()const{
-return(this->name);
+    return(this->name);
 }
 
 void AMateria::use(ICharacter &target)
 {
-    std::cout << "bla bala bla"<<std::endl;
+    std::cout << "shoots at "<< &target << std::endl;
 }
 
 
