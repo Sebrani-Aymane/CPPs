@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 02:23:48 by asebrani          #+#    #+#             */
-/*   Updated: 2025/04/28 04:44:49 by asebrani         ###   ########.fr       */
+/*   Updated: 2025/05/05 00:40:36 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,55 +65,13 @@ void Bureaucrat::decrementGrade()
         throw Bureaucrat::GradeTooLowException();
     this->grade++;
 }
-Bureaucrat::GradeTooHighException::GradeTooHighException() throw()
-{
-    //std::cout << "GradeTooHighException constructor called" << std::endl;
-}
-Bureaucrat::GradeTooHighException::GradeTooHighException(const GradeTooHighException &src) throw()
-{
-    //std::cout << "GradeTooHighException copy constructor called" << std::endl;
-    *this = src;
-}
-Bureaucrat::GradeTooHighException &Bureaucrat::GradeTooHighException::operator=(const GradeTooHighException &rhs) throw()
-{
-    //std::cout << "GradeTooHighException copy assignment operator called" << std::endl;
-    if (this != &rhs)
-    {
-        //this->name = rhs.name;
-    }
-    return *this;
-}
-Bureaucrat::GradeTooHighException::~GradeTooHighException() throw()
-{
-    //std::cout << "GradeTooHighException destructor called" << std::endl;
-}
+
 const char *Bureaucrat::GradeTooHighException::what() const throw()
 {
     return "Grade is too high";
 }
     
-Bureaucrat::GradeTooLowException::GradeTooLowException() throw()
-{
-    //std::cout << "GradeTooLowException constructor called" << std::endl;
-}
-Bureaucrat::GradeTooLowException::GradeTooLowException(const GradeTooLowException &src) throw()
-{
-    //std::cout << "GradeTooLowException copy constructor called" << std::endl;
-    *this = src;
-}
-Bureaucrat::GradeTooLowException &Bureaucrat::GradeTooLowException::operator=(const GradeTooLowException &rhs) throw()
-{
-    //std::cout << "GradeTooLowException copy assignment operator called" << std::endl;
-    if (this != &rhs)
-    {
-        //this->name = rhs.name;
-    }
-    return *this;
-}
-Bureaucrat::GradeTooLowException::~GradeTooLowException() throw()
-{
-    //std::cout << "GradeTooLowException destructor called" << std::endl;
-}
+
 const char *Bureaucrat::GradeTooLowException::what() const  throw()
 {
     return "Grade is too low";

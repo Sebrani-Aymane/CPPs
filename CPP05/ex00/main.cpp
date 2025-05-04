@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 02:23:55 by asebrani          #+#    #+#             */
-/*   Updated: 2025/04/28 08:21:14 by asebrani         ###   ########.fr       */
+/*   Updated: 2025/05/05 00:46:41 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int main()
     try
     {
 
-        Bureaucrat b("B", 151);
+        Bureaucrat b("B", 150);
         std::cout << b << std::endl;
         b.incrementGrade();
         std::cout << b.getGrade() <<std::endl;
@@ -40,10 +40,11 @@ int main()
         std::cout << b.getGrade() <<std::endl;
         b.decrementGrade();
         std::cout << b.getGrade()<<std::endl;
+        Bureaucrat c("C", 151);
     }
     catch(const std::exception& e)
     {
-        std::cerr << e.what() << std::endl;
+        std::cout << e.what() << std::endl;
     }
     return 0;
 }
