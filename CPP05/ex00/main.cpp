@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 02:23:55 by asebrani          #+#    #+#             */
-/*   Updated: 2025/05/05 00:46:41 by asebrani         ###   ########.fr       */
+/*   Updated: 2025/05/14 00:53:20 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,16 @@
 
 int main()
 {
+    Bureaucrat a("A", 1);
     try
     {
-        Bureaucrat a("A", 1);
         std::cout << a << std::endl;
         a.decrementGrade();
         std::cout << a.getGrade() <<std::endl;
         a.incrementGrade();
         std::cout << a.getGrade() <<std::endl;
-        a.incrementGrade();
         std::cout << a.getGrade()<<std::endl;
+        a.incrementGrade();
     }
     catch (std::exception &e)
     {
@@ -31,7 +31,6 @@ int main()
     }
     try
     {
-
         Bureaucrat b("B", 150);
         std::cout << b << std::endl;
         b.incrementGrade();
@@ -40,11 +39,19 @@ int main()
         std::cout << b.getGrade() <<std::endl;
         b.decrementGrade();
         std::cout << b.getGrade()<<std::endl;
-        Bureaucrat c("C", 151);
     }
     catch(const std::exception& e)
     {
         std::cout << e.what() << std::endl;
+    }
+    try
+    {
+        Bureaucrat c("C",151);
+        std::cout << c<< std::endl;
+    }
+    catch(const std::exception& e)
+    {
+        std::cout << e.what()<<std::endl;
     }
     return 0;
 }

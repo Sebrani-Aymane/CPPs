@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 02:23:48 by asebrani          #+#    #+#             */
-/*   Updated: 2025/05/05 00:40:36 by asebrani         ###   ########.fr       */
+/*   Updated: 2025/05/14 00:54:18 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,8 @@ const char *Bureaucrat::GradeTooLowException::what() const  throw()
 {
     return "Grade is too low";
 }
-std::ostream &operator<<(std::ostream &o, Bureaucrat const &i) 
+std::ostream &operator<<(std::ostream &o, Bureaucrat const &bur) 
 {
-    o << i.getName() << ", bureaucrat grade " << i.getGrade();
+    o << bur.getName() << ", bureaucrat grade " << bur.getGrade();
     return o;
 }

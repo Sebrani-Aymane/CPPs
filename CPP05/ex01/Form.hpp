@@ -1,0 +1,41 @@
+#ifndef FORM_HPP
+#define FORM_HPP
+
+#include <string>
+#include "Bureaucrat.hpp"
+
+class Form{
+    private:
+        std::string const name;
+        bool state;
+        int const sign_grade;
+        int const execute_grade;
+    public:
+        Form();
+        Form(std::string name,int const si_grade,int const exec_grade);
+        Form(const Form &src);
+        ~Form();
+
+        std::string getName()const;
+        int getSignGrade()const;
+        bool getState()const;
+        int getExecuteGrade()const;
+        void beSigned(Bureaucrat &signer);
+
+
+        class GradeTooHighException : public std::exception
+        {
+        public:
+           virtual const char *what() const throw();
+        };
+    
+        class GradeTooLowException : public std::exception
+        {
+        public:
+           virtual const char *what()const throw() ;
+    };
+};
+
+std::ostream &operator<<(std::ostream &o, Form const &i);
+
+#endif
