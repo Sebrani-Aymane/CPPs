@@ -6,13 +6,13 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 02:20:06 by asebrani          #+#    #+#             */
-/*   Updated: 2025/05/15 02:51:43 by asebrani         ###   ########.fr       */
+/*   Updated: 2025/05/15 09:04:12 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Form.hpp"
 
-Form::Form(): name("Form") ,sign_grade(100),execute_grade(149)
+Form::Form(): name("theForm") ,sign_grade(100),execute_grade(149)
 {
     //std::cout << "Default constructor called" << std::endl;
     state = false; 
@@ -58,14 +58,13 @@ bool Form::getState() const{
 
 void Form::beSigned(Bureaucrat &signer)
 {
-    try{
-        signer.getGrade() <this->getSignGrade();
+    if (this->state ==true)
+            std::cout << "form is already signed"<<std::endl;
+    if (signer.getGrade() >= this->getSignGrade())
         this->state = true;
-    }
-    catch(const std::exception &e)
-    {
-        std::cout <<e.what()<<std::endl;
-    }
+    else
+        throw Form::GradeTooLowException();
+
 }
 const char *Form::GradeTooHighException::what() const throw()
 {
@@ -78,6 +77,6 @@ const char *Form::GradeTooLowException::what() const  throw()
 }
 std::ostream &operator<<(std::ostream &o, Form const &form) 
 {
-    o << form.getName() << ", Form SignGrade " << form.getSignGrade()<<" and ExecutionGrade"<<form.getExecuteGrade()<<" and it s state is "<<form.getState();
+    o << form.getName() << ", Form SignGrade " << form.getSignGrade()<<" and ExecutionGrade "<<form.getExecuteGrade()<<" and it s state is "<<form.getState();
     return o;
 }

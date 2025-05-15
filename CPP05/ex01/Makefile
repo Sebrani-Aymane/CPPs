@@ -1,7 +1,7 @@
 CC = c++
 CFLAGS = -Wall -Wextra -Werror -std=c++98
 
-NAME = MWIGUIWTBB
+NAME = FUM
 
 INC = Bureaucrat.hpp Form.hpp
 
