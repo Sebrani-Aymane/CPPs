@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/28 02:23:55 by asebrani          #+#    #+#             */
-/*   Updated: 2025/05/14 00:53:20 by asebrani         ###   ########.fr       */
+/*   Updated: 2025/05/15 02:19:40 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ int main()
     {
         std::cout << e.what() << std::endl;
     }
+
+    
     try
     {
         Bureaucrat b("B", 150);
@@ -47,7 +49,6 @@ int main()
     try
     {
         Bureaucrat c("C",151);
-        std::cout << c<< std::endl;
     }
     catch(const std::exception& e)
     {

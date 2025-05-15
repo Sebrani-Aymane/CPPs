@@ -3,9 +3,9 @@ CFLAGS = -Wall -Wextra -Werror -std=c++98
 
 NAME = MWIGUIWTBB
 
-INC = Bureaucrat.hpp Form.hpp
+INC =Aform.hpp Bureaucrat.hpp Form.hpp RobotomyRequestForm.hpp ShrubberyCreationForm.hpp
 
-SRCS = main.cpp Bureaucrat.cpp Form.cpp
+SRCS = Aform.cpp Bureaucrat.cpp Form.cpp main.cpp PresidentialPardonForm.cpp RobotomyRequestForm.cpp ShrubberyCreationForm.cpp
 OBJS = $(SRCS:.cpp=.o)
 
 all : $(NAME)
