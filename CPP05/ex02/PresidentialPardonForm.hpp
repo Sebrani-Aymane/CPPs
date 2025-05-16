@@ -19,18 +19,6 @@ class PresidentialPardonForm : public AForm{
     PresidentialPardonForm &operator=(const PresidentialPardonForm &rhs);
    void execute(Bureaucrat const &executor);
    bool getState() const;
-
-    class GradeTooHighException : public std::exception
-    {
-    public:
-       virtual const char *what() const throw();
-    };
-
-    class GradeTooLowException : public std::exception
-    {
-    public:
-       virtual const char *what()const throw() ;
-};
 };
 
 #endif
