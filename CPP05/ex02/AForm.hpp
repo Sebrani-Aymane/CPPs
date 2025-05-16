@@ -5,25 +5,27 @@
 #include "Bureaucrat.hpp"
 
 class Bureaucrat;
-class Form{
+
+class AForm{
     private:
         std::string const name;
         bool state;
         int const sign_grade;
         int const execute_grade;
     public:
-        Form(std::string name,int const si_grade,int const exec_grade);
-        
-        Form();
-        Form(const Form &src);
-        virtual ~Form()=0;
-        Form &operator=(const Form &rhs);
+        AForm(std::string name,int const si_grade,int const exec_grade);
+
+        AForm();
+        AForm(const AForm &src);
+        virtual ~AForm();
+        AForm &operator=(const AForm &rhs);
 
         std::string getName()const;
         int getSignGrade()const;
         bool getState()const;
         int getExecuteGrade()const;
         void beSigned(Bureaucrat &signer);
+        virtual void execute(AForm const &form)=0;
 
 
         class GradeTooHighException : public std::exception
@@ -39,6 +41,6 @@ class Form{
     };
 };
 
-std::ostream &operator<<(std::ostream &o, Form const &i);
+std::ostream &operator<<(std::ostream &o, AForm const &i);
 
 #endif

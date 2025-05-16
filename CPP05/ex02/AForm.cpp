@@ -1,35 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Form.cpp                                           :+:      :+:    :+:   */
+/*   AForm.cpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/15 02:20:06 by asebrani          #+#    #+#             */
-/*   Updated: 2025/05/15 11:09:05 by asebrani         ###   ########.fr       */
+/*   Created: 2025/05/15 23:30:40 by asebrani          #+#    #+#             */
+/*   Updated: 2025/05/15 23:35:59 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Form.hpp"
+#include "AForm.hpp"
 
-Form::Form(): name("theForm") ,sign_grade(100),execute_grade(149)
+AForm::AForm(): name("theAForm") ,sign_grade(100),execute_grade(149)
 {
     //std::cout << "Default constructor called" << std::endl;
     state = false; 
 }
-Form::Form(std::string name,int const si_grade,int const exec_grade): name(name) ,sign_grade(si_grade),execute_grade(exec_grade)
+AForm::AForm(std::string name,int const si_grade,int const exec_grade): name(name) ,sign_grade(si_grade),execute_grade(exec_grade)
 {
     //std::cout << "Parameterized constructor called" << std::endl;
     state = false;
 }
-Form::Form(const Form &src): name(src.name),sign_grade(src.sign_grade),execute_grade(src.execute_grade)
+AForm::AForm(const AForm &src): name(src.name),sign_grade(src.sign_grade),execute_grade(src.execute_grade)
 {
     
     //std::cout << "Copy constructor called" << std::endl;
     *this = src;
 }
 
-Form &Form::operator=(const Form &rhs)
+AForm &AForm::operator=(const AForm &rhs)
 {
     //std::cout << "Copy assignment operator called" << std::endl;
     if (this != &rhs)
@@ -38,45 +38,45 @@ Form &Form::operator=(const Form &rhs)
     }
     return *this;
 }
-Form::~Form()
+AForm::~AForm()
 {
     //std::cout << "Destructor called" << std::endl;
 }
-std::string Form::getName() const
+std::string AForm::getName() const
 {
     return this->name;
 }
-int Form::getSignGrade()const{
+int AForm::getSignGrade()const{
     return this->sign_grade;
 }
-int Form::getExecuteGrade()const{
+int AForm::getExecuteGrade()const{
     return this->execute_grade;
 }
-bool Form::getState() const{
+bool AForm::getState() const{
     return this->state;
 }
 
-void Form::beSigned(Bureaucrat &signer)
+void AForm::beSigned(Bureaucrat &signer)
 {
     if (this->state ==true)
-            std::cout << "form is already signed"<<std::endl;
+            std::cout << "Aform is already signed"<<std::endl;
     if (signer.getGrade() >= this->getSignGrade())
         this->state = true;
     else
-        throw Form::GradeTooLowException();
+        throw AForm::GradeTooLowException();
 
 }
-const char *Form::GradeTooHighException::what() const throw()
+const char *AForm::GradeTooHighException::what() const throw()
 {
     return "Grade is too high";
 }
 
-const char *Form::GradeTooLowException::what() const  throw()
+const char *AForm::GradeTooLowException::what() const  throw()
 {
     return "Grade is too low";
 }
-std::ostream &operator<<(std::ostream &o, Form const &form) 
+std::ostream &operator<<(std::ostream &o, AForm const &Aform) 
 {
-    o << form.getName() << ", Form SignGrade " << form.getSignGrade()<<" and ExecutionGrade "<<form.getExecuteGrade()<<" and it s state is "<<form.getState();
+    o << Aform.getName() << ", AForm SignGrade " << Aform.getSignGrade()<<" and ExecutionGrade "<<Aform.getExecuteGrade()<<" and it s state is "<<Aform.getState();
     return o;
 }
