@@ -53,7 +53,14 @@ const char *PresidentialPardonForm::GradeTooLowException::what() const  throw()
 {
     return "Grade is too low";
 }
-void PresidentialPardonForm::execute()
+void PresidentialPardonForm::execute(){
+    if (this->getIsSigned() == false)
+        throw AForm::FormNotSignedException();
+    if (this->getGradeToExecute() < 5)
+        throw AForm::GradeTooLowException();
+    std::cout << this->target << " has been pardoned by Zaphod Beeblebrox" << std::endl;
+    this->state = true;
+}
 std::ostream &operator<<(std::ostream &o, PresidentialPardonForm const &PresidentialPardonForm) 
 {
     o << ", PresidentialPardonForm SignGrade is 25 and ExecutionGrade is 5 and it s state is " << PresidentialPardonForm.getState();

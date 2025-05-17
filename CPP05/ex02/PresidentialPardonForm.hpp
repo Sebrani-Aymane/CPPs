@@ -19,6 +19,7 @@ class PresidentialPardonForm : public AForm{
     PresidentialPardonForm &operator=(const PresidentialPardonForm &rhs);
    void execute(Bureaucrat const &executor);
    bool getState() const;
+   
 };
 
 #endif
