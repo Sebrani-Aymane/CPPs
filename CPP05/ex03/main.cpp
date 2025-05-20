@@ -23,7 +23,7 @@ int main ()
     Bureaucrat b2("Bureaucrat", 2);
     Bureaucrat b3("Bureaucrat", 3);
     
-    Bureaucrat b4("Bureaucrat b4", 1);
+    Bureaucrat b4("Bureaucrat", 138);
 
     ShrubberyCreationForm shrubberyForm;
     RobotomyRequestForm robotomyForm;
