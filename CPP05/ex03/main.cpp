@@ -15,39 +15,37 @@
 #include "PresidentialPardonForm.hpp"
 #include "ShrubberyCreationForm.hpp"
 #include "RobotomyRequestForm.hpp"
+#include "Intern.hpp"
 
+int main() {
+    Intern Intern;
+    Bureaucrat boss("Boss", 1);
+    AForm* form;
 
-int main ()
-{
-    Bureaucrat b1("Bureaucrat", 1);
-    Bureaucrat b2("Bureaucrat", 2);
-    Bureaucrat b3("Bureaucrat", 3);
-    
-    Bureaucrat b4("Bureaucrat", 138);
-
-    ShrubberyCreationForm shrubberyForm;
-    RobotomyRequestForm robotomyForm;
-    PresidentialPardonForm presidentialForm;
-
-    std::cout << "Initial state of forms:" << std::endl;
-    std::cout << shrubberyForm << std::endl;
-    std::cout << robotomyForm << std::endl;
-    std::cout << presidentialForm << std::endl;
-
+    // Test creating each valid form
     try {
-        shrubberyForm.beSigned(b1);
-        robotomyForm.beSigned(b2);
-        presidentialForm.beSigned(b3);
-    } catch (std::exception &e) {
-        std::cerr << e.what() << std::endl;
-    }
+        form = Intern.makeForm("shrubbery creation", "home");
+        boss.signForm(*form);
+        boss.executeForm(*form);
+        delete form;
 
-    try {
-        presidentialForm.execute(b1);
-        robotomyForm.execute(b2);
-        shrubberyForm.execute(b4);
-    } catch (std::exception &e) {
-        std::cerr << e.what() << std::endl;
+        form = Intern.makeForm("robotomy request", "Bender");
+        boss.signForm(*form);
+        boss.executeForm(*form);
+        delete form;
+
+        form = Intern.makeForm("presidential pardon", "Zaphod");
+        boss.signForm(*form);
+        boss.executeForm(*form);
+        delete form;
+
+        form = Intern.makeForm("invalid form", "target");
+        delete form;
+    } 
+    catch (const std::exception& e) {
+        std::cout << e.what() << std::endl;
+        if (form)
+            delete form;
     }
 
     return 0;
