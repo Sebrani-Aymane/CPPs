@@ -40,7 +40,13 @@ AForm &AForm::operator=(const AForm &rhs)
 }
 AForm::~AForm()
 {
-    //std::cout << "Destructor called" << std::endl;
+    
+}
+void AForm::execute(Bureaucrat const &executor)const{
+    if (this->getState()==false)
+        throw AForm::FormNotSignedException();
+    if (executor.getGrade() >this->getExecuteGrade())
+        throw AForm::GradeTooLowException();
 }
 std::string AForm::getName() const
 {
@@ -55,7 +61,10 @@ int AForm::getExecuteGrade()const{
 bool AForm::getState() const{
     return this->state;
 }
-
+const char *AForm::FormNotSignedException::what() const throw()
+{
+    return "This form is not signed";
+}
 void AForm::beSigned(Bureaucrat &signer)
 {
     if (this->state ==true)

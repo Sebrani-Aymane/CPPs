@@ -26,6 +26,11 @@ void RobotomyRequestForm::execute(Bureaucrat const &executor) const {
    if (executor.getGrade() > this->getExecuteGrade())
        throw AForm::GradeTooLowException();
    std::cout <<  "Drilling noises..." << std::endl;
+   srand(time(NULL));
+   if (rand()%2==0)
+      std::cout<< executor.getName()<<" has been robotomized successfully" <<std::endl;
+   std::cout << executor.getName()<< "robotomy s failed"<<std::endl;
+
 }
 const char *RobotomyRequestForm::FormNotSignedException::what() const throw()
 {

@@ -29,7 +29,6 @@ int main ()
     RobotomyRequestForm robotomyForm;
     PresidentialPardonForm presidentialForm;
 
-    std::cout << "Initial state of forms:" << std::endl;
     std::cout << shrubberyForm << std::endl;
     std::cout << robotomyForm << std::endl;
     std::cout << presidentialForm << std::endl;

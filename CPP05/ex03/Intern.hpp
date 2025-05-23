@@ -15,7 +15,7 @@ class Intern{
     Intern(const Intern &src);
     Intern& operator=(const Intern &rhs);
 
-    AForm *makeForm(std::string form,std::string target);
+    AForm* makeForm(std::string formName,std::string target);
 class NoSuchFormException : public std::exception{
     public:
     virtual const char *what()const throw();
