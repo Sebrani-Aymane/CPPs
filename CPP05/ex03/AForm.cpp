@@ -55,12 +55,15 @@ int AForm::getExecuteGrade()const{
 bool AForm::getState() const{
     return this->state;
 }
-void AForm::execute(Bureaucrat const &executor)const{
+
+void AForm::execute(Bureaucrat const &executor) const
+{
     if (this->getState()==false)
         throw AForm::FormNotSignedException();
     if (executor.getGrade() >this->getExecuteGrade())
         throw AForm::GradeTooLowException();
 }
+
 void AForm::beSigned(Bureaucrat &signer)
 {
     if (this->state ==true)

@@ -23,7 +23,7 @@ int main ()
     Bureaucrat b2("Bureaucrat", 2);
     Bureaucrat b3("Bureaucrat", 3);
     
-    Bureaucrat b4("Bureaucrat b4", 1);
+    Bureaucrat b4("Bureaucrat b4", 150);
 
     ShrubberyCreationForm shrubberyForm;
     RobotomyRequestForm robotomyForm;
@@ -38,15 +38,15 @@ int main ()
         robotomyForm.beSigned(b2);
         presidentialForm.beSigned(b3);
     } catch (std::exception &e) {
-        std::cerr << e.what() << std::endl;
+        std::cout << e.what() << std::endl;
     }
 
     try {
-        presidentialForm.execute(b1);
-        robotomyForm.execute(b2);
-        shrubberyForm.execute(b4);
+        b1.executeForm(shrubberyForm);
+        b2.executeForm(robotomyForm);
+        b4.executeForm(presidentialForm);
     } catch (std::exception &e) {
-        std::cerr << e.what() << std::endl;
+        std::cout << e.what() << std::endl;
     }
 
     return 0;
