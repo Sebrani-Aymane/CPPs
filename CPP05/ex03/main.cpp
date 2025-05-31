@@ -19,33 +19,29 @@
 
 int main() {
     Intern Intern;
-    Bureaucrat boss("Boss", 1);
+    Bureaucrat bureaucrat("bureaucrat", 1);
     AForm* form;
 
-    // Test creating each valid form
     try {
         form = Intern.makeForm("shrubbery creation", "home");
-        boss.signForm(*form);
-        boss.executeForm(*form);
+        bureaucrat.signForm(*form);
+        bureaucrat.executeForm(*form);
         delete form;
 
         form = Intern.makeForm("robotomy request", "Bender");
-        boss.signForm(*form);
-        boss.executeForm(*form);
+        bureaucrat.signForm(*form);
+        bureaucrat.executeForm(*form);
         delete form;
 
         form = Intern.makeForm("presidential pardon", "Zaphod");
-        boss.signForm(*form);
-        boss.executeForm(*form);
+        bureaucrat.signForm(*form);
+        bureaucrat.executeForm(*form);
         delete form;
 
         form = Intern.makeForm("invalid form", "target");
-        delete form;
     } 
     catch (const std::exception& e) {
         std::cout << e.what() << std::endl;
-        if (form)
-            delete form;
     }
 
     return 0;

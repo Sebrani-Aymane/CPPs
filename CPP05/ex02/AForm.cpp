@@ -45,7 +45,7 @@ AForm::~AForm()
 void AForm::execute(Bureaucrat const &executor)const{
     if (this->getState()==false)
         throw AForm::FormNotSignedException();
-    if (executor.getGrade() >this->getExecuteGrade())
+     if (executor.getGrade() >this->getExecuteGrade())
         throw AForm::GradeTooLowException();
 }
 std::string AForm::getName() const

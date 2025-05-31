@@ -25,7 +25,7 @@ class AForm{
         bool getState()const;
         int getExecuteGrade()const;
         void beSigned(Bureaucrat &signer);
-        void execute(Bureaucrat const &executor)const;
+      virtual void execute(Bureaucrat const &executor) const =0;
 
            class FormNotSignedException  : public std::exception {
         public:
