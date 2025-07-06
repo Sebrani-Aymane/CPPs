@@ -1,15 +1,24 @@
-CC=c++
-FLAGS=-Wall -Wextra -Werror -std=c++98
-INCS =  helpers.hpp ScalarConverter.hpp
-SRCS=main.cpp helpers.cpp ScalarConverter.cpp
-OBJS=$(SRCS:.cpp=.o)
-NAME=ScalarConverter
-all: $(NAME)
-$(NAME): $(OBJS) $(INCS)
-	$(CC) $(FLAGS) -o $(NAME) $(OBJS)
-%.o: %.cpp $(INCS)
-	$(CC) $(FLAGS) -c $< -o $@
-clean:
+CC = c++
+CFLAGS = -Wall -Wextra -Werror -std=c++98
+
+NAME = CST
+
+INC = ScalarConverter.hpp 
+
+SRCS = main.cpp ScalarConverter.cpp helpers.cpp
+OBJS = $(SRCS:.cpp=.o)
+
+all : $(NAME)
+
+$(NAME) : $(OBJS)
+	$(CC) $(CFLAGS) $(OBJS) -o $(NAME)	
+%.o : %.cpp $(INC)
+	$(CC) $(CFLAGS) -c $< -o $@
+
+clean :
 	rm -f $(OBJS)
-fclean: clean
+
+fclean : clean
 	rm -f $(NAME)
+
+re : fclean all

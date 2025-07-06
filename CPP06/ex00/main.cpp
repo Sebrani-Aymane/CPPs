@@ -1,14 +1,22 @@
-#include <string>
-#include <iostream>
-#include  "ScalarConverter.hpp"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.cpp                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/06 08:38:14 by asebrani          #+#    #+#             */
+/*   Updated: 2025/07/06 09:35:42 by asebrani         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-int main(int argc, char **argv)
+#include "ScalarConverter.hpp"
+#include "helpers.hpp"
+
+int main(int ac,char **av)
 {
-    if (argc != 2)
-    {
-        std::cout << "Usage: ./ScalarConverter <string>" << std::endl;
-        return 1;
-    }
-    std::string input = argv[1]; ScalarConverter::convert(argv[1]);
-    return 0;
+    if (ac !=2 )
+        return(std::cout << "Usage <./CST> <value> " << std::endl,1);
+    std::string input(av[1]);
+    ScalarConverter::convert(input);
 }
