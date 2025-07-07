@@ -1,6 +1,6 @@
 NAME = identify
 
-SRCS = main.cpp Base.cpp functions.cpp
+SRCS = main.cpp Base.cpp functions.cpp A.cpp B.cpp C.cpp
 
 OBJS = $(SRCS:.cpp=.o)
 
