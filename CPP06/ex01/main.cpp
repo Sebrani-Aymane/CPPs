@@ -6,7 +6,7 @@
 /*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 16:20:45 by asebrani          #+#    #+#             */
-/*   Updated: 2025/07/07 16:30:01 by asebrani         ###   ########.fr       */
+/*   Updated: 2025/07/17 20:44:32 by asebrani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,11 @@ int main() {
     data.c = 3.14f;
 
     uintptr_t raw = Serializer::serialize(&data);
-    std::cout << "Serialized data: " << raw << std::endl;
+    std::cout << "Data before: " << raw << std::endl;
     Data* deserializedData = Serializer::deserialize(raw);
-    std::cout << "Deserialized Data: " << deserializedData->a << ", "
-              << deserializedData->b << ", "
-              << deserializedData->c << std::endl;
+    std::cout << "Data after: " << deserializedData->a  << std::endl;
+  std::cout << "Data after: " << deserializedData->b << std::endl;
+  std::cout << "Data after: " << deserializedData->c << std::endl;
 
     return 0;
 }

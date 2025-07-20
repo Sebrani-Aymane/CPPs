@@ -1,28 +1,27 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ScalarConverter.hpp                                :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/06 08:38:19 by asebrani          #+#    #+#             */
-/*   Updated: 2025/07/07 16:14:51 by asebrani         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-
 #ifndef SCALARCONVERTER_HPP
 #define SCALARCONVERTER_HPP
 
-#include "helpers.hpp"
+#include <iostream>
+#include <string>
+#include <limits>
+#include <cmath>
+#include <iomanip>
+#include <stdexcept>
 
 class ScalarConverter {
-    private :
-        ScalarConverter();
-    public:
-        static void convert(const std::string& input);
+private:
+    ScalarConverter();
+    ~ScalarConverter();
+    ScalarConverter(const ScalarConverter &);
+    ScalarConverter &operator=(const ScalarConverter &);
 
+    static void convertChar(const std::string &str);
+    static void convertInt(const std::string &str);
+    static void convertFloat(const std::string &str);
+    static void convertDouble(const std::string &str);
+
+public:
+    static void convert(const std::string &str);
 };
-
 
 #endif

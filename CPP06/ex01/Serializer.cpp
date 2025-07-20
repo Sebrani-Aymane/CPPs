@@ -9,6 +9,14 @@ Data* Serializer::deserialize(uintptr_t raw) {
 }
 
 Serializer::Serializer() {
-    // Private constructor to prevent instantiation
-}
 
+}
+Serializer::~Serializer() {
+
+}
+Serializer::Serializer(const Serializer& other) {
+    (void)other;
+}
+Serializer& Serializer::operator=(const Serializer& other) {
+    return *this;
+}

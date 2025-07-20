@@ -1,25 +1,25 @@
-NAME = identify
+CC = c++
+FLAGS = -Wall -Wextra -Werror -std=c++98
 
-SRCS = main.cpp Base.cpp functions.cpp A.cpp B.cpp C.cpp
 
+NAME = IRT
+
+INC = A.hpp    B.hpp    Base.hpp C.hpp
+
+SRCS = Base.cpp main.cpp
 OBJS = $(SRCS:.cpp=.o)
 
-CXX = c++
-CXXFLAGS = -Wall -Wextra -Werror -std=c++98
+all : $(NAME)
 
-all: $(NAME)
+$(NAME) : $(OBJS)
+	$(CC) $(CFLAGS) $(OBJS) -o $(NAME)	
+%.o : %.cpp $(INC)
+	$(CC) $(CFLAGS) -c $< -o $@
 
-$(NAME): $(OBJS)
-	$(CXX) $(OBJS) -o $(NAME)
-
-%.o: %.cpp
-	$(CXX) $(CXXFLAGS) -c $< -o $@
-
-clean:
+clean :
 	rm -f $(OBJS)
 
-fclean: clean
+fclean : clean
 	rm -f $(NAME)
 
-re: fclean all
-
+re : fclean all

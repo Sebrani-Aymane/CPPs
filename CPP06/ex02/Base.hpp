@@ -1,21 +1,16 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   Base.hpp                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: asebrani <asebrani@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/07 16:35:00 by asebrani          #+#    #+#             */
-/*   Updated: 2025/07/07 16:45:09 by asebrani         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef BASE_HPP
 #define BASE_HPP
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+
 
 class Base {
 public:
     virtual ~Base();
 };
+Base *generate(void);
+void identify(Base *p);
+void identify(Base &p);
 
 #endif
