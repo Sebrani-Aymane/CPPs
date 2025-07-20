@@ -54,29 +54,16 @@ void ScalarConverter::convertInt(const std::string &str) {
 }
 
 void ScalarConverter::convertFloat(const std::string &str) {
-    try{
-        // Check for overflow before conversion
         std::string numPart = str.substr(0, str.length() - 1);
-        double temp = std::stod(numPart);
-        if (temp > std::numeric_limits<float>::max() || temp < -std::numeric_limits<float>::max()) {
+
+        double value = std::strtof(numPart.c_str(),NULL);
+        if (value > std::numeric_limits<float>::max() || value < -std::numeric_limits<float>::max()) {
             std::cout << "char: impossible" << std::endl;
             std::cout << "int: impossible" << std::endl;
             std::cout << "float: impossible" << std::endl;
             std::cout << "double: impossible" << std::endl;
             return;
         }
-        
-        float value = std::stof(str);
-        
-        // Check for infinity or NaN
-        if (std::isinf(value) || std::isnan(value)) {
-            std::cout << "char: impossible" << std::endl;
-            std::cout << "int: impossible" << std::endl;
-            std::cout << "float: impossible" << std::endl;
-            std::cout << "double: impossible" << std::endl;
-            return;
-        }
-        
         std::cout << "char: ";
         if (value < 0 || value > 127 ) {
             std::cout << "impossible" << std::endl;
@@ -104,17 +91,19 @@ void ScalarConverter::convertFloat(const std::string &str) {
         std::cout << "double: ";
         Helpers::printDouble(d_val);
         std::cout << std::endl;
-    } catch (const std::exception &e) {
-        std::cout << "char: impossible" << std::endl;
-        std::cout << "int: impossible" << std::endl;
-        std::cout << "float: impossible" << std::endl;
-        std::cout << "double: impossible" << std::endl;
-    }
+        return;
 }
 
 void ScalarConverter::convertDouble(const std::string &str) {
-    try {
-        double value = std::stod(str);
+
+        double value = std::strtod(str.c_str(), NULL);
+        if (value > std::numeric_limits<float>::max() || value < -std::numeric_limits<float>::max()) {
+            std::cout << "char: impossible" << std::endl;
+            std::cout << "int: impossible" << std::endl;
+            std::cout << "float: impossible" << std::endl;
+            std::cout << "double: impossible" << std::endl;
+            return;
+        }
         std::cout << "char: ";
         if (value < 0 || value > 127) {
             std::cout << "impossible" << std::endl;
@@ -141,16 +130,11 @@ void ScalarConverter::convertDouble(const std::string &str) {
         std::cout << "double: ";
         Helpers::printDouble(value);
         std::cout << std::endl;
-    } catch (const std::exception &e) {
-        std::cout << "char: impossible" << std::endl;
-        std::cout << "int: impossible" << std::endl;
-        std::cout << "float: impossible" << std::endl;
-        std::cout << "double: impossible" << std::endl;
-    }
-}
+    } 
 
 void ScalarConverter::convert(const std::string &str) {
     int type = Helpers::getType(str);
+    
     switch (type) {
         case 0:
             std::cout << "char: impossible" << std::endl;
@@ -181,6 +165,10 @@ void ScalarConverter::convert(const std::string &str) {
             convertChar(str);
             break;
         default:
-            std::cout << "Error: Invalid input" << std::endl;
+           std::cout << "char: impossible" << std::endl;
+            std::cout << "int: impossible" << std::endl;
+            std::cout << "float: impossible" << std::endl;
+            std::cout << "double: impossible" << std::endl;
+            return;
     }
 }

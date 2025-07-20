@@ -1,6 +1,7 @@
 #include "helpers.hpp"
+#include <sstream> 
 #include <cmath>
-#include <limits>
+#include <cfloat>
 
 int Helpers::getType(const std::string &str) {
      if (isLiteral(str))
@@ -11,7 +12,7 @@ int Helpers::getType(const std::string &str) {
         return 2;
   else  if (isInt(str))
         return 3;
-   else  if (isChar(str))
+   else if (isChar(str))
         return 4; 
     return -1;
 }
@@ -43,23 +44,38 @@ bool Helpers::isFloat(const std::string &str) {
     if (str.empty() || str.back() != 'f')
         return false;
     std::string numPart = str.substr(0, str.length() - 1);
+    if (numPart.empty() || (numPart[0] != '-' && numPart[0] != '+' && !isdigit(numPart[0])))
+        return false;
+    for (size_t i = 1; i < numPart.length(); ++i) {
+        if (!isdigit(numPart[i]) && numPart[i] != '.')
+            return false;
+    }
     try {
-        std::stof(numPart);
-        return true;
-    } catch (...) {
+        char *end;
+        float value = std::strtof(numPart.c_str(), &end);
+        if (std::isinf(value) || std::isnan(value))
+            return false;
+    } catch (const std::out_of_range &) {
         return false;
     }
+    return true;
 }
 
 bool Helpers::isDouble(const std::string &str) {
-    if (str.empty())
+    if (str.empty() || str.back() == 'f' || (str[0] != '-' && str[0] != '+' && !isdigit(str[0])))
         return false;
+    for (size_t i = 1; i < str.length(); ++i) {
+        if (!isdigit(str[i]) && str[i] != '.')
+            return false;
+    }
     try {
-        std::stod(str);
-        return true;
-    } catch (...) {
+        double value = std::stod(str);
+        if (std::isinf(value) || std::isnan(value))
+            return false;
+    } catch (const std::out_of_range &) {
         return false;
     }
+    return true;
 }
 
 void Helpers::printFloat(float value) {
@@ -67,32 +83,40 @@ void Helpers::printFloat(float value) {
         std::cout << "impossible";
         return;
     }
-    
     std::cout << std::fixed;
-    if (value == static_cast<long long>(value) && value >= -1e10 && value <= 1e10) {
-        std::cout << std::setprecision(1) << value << "f";
-    } else {
-        std::cout << std::setprecision(6) << value << "f";
-    }
-}
-
-void Helpers::printDouble(double value) {
-    const double MAX_DISPLAYABLE = 1e15;
-    const double MIN_DISPLAYABLE = -1e15;
-    
-    if (std::isinf(value) || std::isnan(value) || 
-        value > MAX_DISPLAYABLE || value < MIN_DISPLAYABLE) {
-        std::cout << "impossible";
+    std::ostringstream temp;
+    temp << value;
+    size_t pos = temp.str().find('.');
+    if (pos == std::string::npos) {
+        std::cout << value << "f";
         return;
     }
+    int dot = temp.str().length() - pos - 1;
+
+        std::cout << std::setprecision(dot) << value << "f";
+    }
+
+void Helpers::printDouble(double value) {
+    if (value > std::numeric_limits<double>::max() || value < -std::numeric_limits<double>::max()) {
+        
+        std::cout << "double: impossible" << std::endl;
+        return;
+    }
+    if (std::isinf(value) || std::isnan(value)) {
+        std::cout << "impossible";
+        return;}
     
     std::cout << std::fixed;
-    if (value == static_cast<long long>(value) && value >= -1e10 && value <= 1e10) {
-        std::cout << std::setprecision(1) << value;
-    } else {
-        std::cout << std::setprecision(6) << value;
+    std::ostringstream temp;
+    temp << value;
+    size_t pos = temp.str().find('.');
+    if (pos == std::string::npos) {
+        std::cout << value;
+        return;
     }
-}
+    int dot = temp.str().length() - pos - 1;
+        std::cout << std::setprecision(dot) << value;
+    }
 
 bool Helpers::isLiteral(const std::string &str) {
     return str == "nan" || str == "nanf"
