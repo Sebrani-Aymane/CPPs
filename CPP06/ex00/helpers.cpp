@@ -46,35 +46,48 @@ bool Helpers::isFloat(const std::string &str) {
     std::string numPart = str.substr(0, str.length() - 1);
     if (numPart.empty() || (numPart[0] != '-' && numPart[0] != '+' && !isdigit(numPart[0])))
         return false;
+    int dot =0;
     for (size_t i = 1; i < numPart.length(); ++i) {
         if (!isdigit(numPart[i]) && numPart[i] != '.')
             return false;
+        if (numPart[i] == '.') {
+            dot++;
+            if (dot > 1)
+                return false;
+        }
     }
-    try {
-        char *end;
-        float value = std::strtof(numPart.c_str(), &end);
+    size_t pos = numPart.find('.');
+    if(pos != std::string::npos && (!isdigit(str[pos+1]) || !str[pos+1]))
+        return false;
+
+        float value = std::strtof(numPart.c_str(),NULL);
         if (std::isinf(value) || std::isnan(value))
             return false;
-    } catch (const std::out_of_range &) {
-        return false;
-    }
     return true;
 }
 
 bool Helpers::isDouble(const std::string &str) {
     if (str.empty() || str.back() == 'f' || (str[0] != '-' && str[0] != '+' && !isdigit(str[0])))
         return false;
+    int dotCount = 0;
     for (size_t i = 1; i < str.length(); ++i) {
         if (!isdigit(str[i]) && str[i] != '.')
             return false;
+        if (str[i] == '.') {
+            dotCount++;
+            if (dotCount > 1)
+                return false;
+        }
     }
-    try {
-        double value = std::stod(str);
-        if (std::isinf(value) || std::isnan(value))
-            return false;
-    } catch (const std::out_of_range &) {
+
+    size_t pos = str.find('.');
+    if (pos != std::string::npos && (pos + 1 >= str.length() || !isdigit(str[pos + 1])))
         return false;
-    }
+
+    double value = std::strtod(str.c_str(), NULL);
+    if (std::isinf(value) || std::isnan(value))
+        return false;
+
     return true;
 }
 
@@ -88,7 +101,7 @@ void Helpers::printFloat(float value) {
     temp << value;
     size_t pos = temp.str().find('.');
     if (pos == std::string::npos) {
-        std::cout << value << "f";
+        std::cout << std::setprecision(1)<< value << "f";
         return;
     }
     int dot = temp.str().length() - pos - 1;
@@ -97,11 +110,10 @@ void Helpers::printFloat(float value) {
     }
 
 void Helpers::printDouble(double value) {
-    if (value > std::numeric_limits<double>::max() || value < -std::numeric_limits<double>::max()) {
-        
-        std::cout << "double: impossible" << std::endl;
-        return;
-    }
+    if(std::isinf(value) || std::isnan(value)) {
+    std::cout << "double: impossible" << std::endl;
+    return;
+}
     if (std::isinf(value) || std::isnan(value)) {
         std::cout << "impossible";
         return;}
@@ -111,7 +123,7 @@ void Helpers::printDouble(double value) {
     temp << value;
     size_t pos = temp.str().find('.');
     if (pos == std::string::npos) {
-        std::cout << value;
+        std::cout << std::setprecision(1) << value;
         return;
     }
     int dot = temp.str().length() - pos - 1;

@@ -133,8 +133,7 @@ void ScalarConverter::convertDouble(const std::string &str) {
     } 
 
 void ScalarConverter::convert(const std::string &str) {
-    int type = Helpers::getType(str);
-    
+    int type = Helpers::getType(str); 
     switch (type) {
         case 0:
             std::cout << "char: impossible" << std::endl;
