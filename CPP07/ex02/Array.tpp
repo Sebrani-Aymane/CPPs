@@ -7,28 +7,19 @@ Array<T>::Array()
 {
     array = new T[0];
     sizee = 0;
-    std::cout << "default constrc called"<< std::endl;
 }
 template <typename T>
 Array<T>::Array(unsigned int n)
 {
-    if (n <4294967295){
-        array = new T[n];
-        sizee = n;
-    }
-    else {
-        std::cout << "out of limits" << '\n';
-        array = NULL;
-        exit(1);
-       }   std::cout << "params constrc called"<<std::endl;
-    
+    array = new T[n];
+    sizee = n;
 }
 
 
 template <typename T>
 Array<T>::~Array()
 {
-    std::cout << "destructor"<<std::endl;
+ 
     delete[] array;
 }
 template <typename T>
@@ -38,6 +29,7 @@ Array<T>::Array(const Array<T>& other) : array (new T[other.sizee]),sizee(other.
         array[i] = other.array[i];
     }
 }
+
 template <typename T>
  Array<T>& Array<T>::operator=(const Array<T>& other){
     if (this != &other)
@@ -56,7 +48,7 @@ template <typename T>
         return(*this);
 }
 template <typename T>
-T& Array<T>::operator[](unsigned int index) const
+T& Array<T>::operator[](unsigned int index) 
 {
     if (index >= sizee)
     {

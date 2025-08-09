@@ -2,12 +2,7 @@
 #define ITER_HPP
 #include <iostream>
 
-template< typename T >
-void print( T& x )
-{
-  std::cout << x << std::endl;
-  return;
-}
+
 template <typename T,typename F>
 void iter(T *array, int lenght,void f1(F element))
 {

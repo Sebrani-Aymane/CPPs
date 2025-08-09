@@ -78,7 +78,10 @@
     "ios": "cpp",
     "locale": "cpp",
     "mutex": "cpp",
-    "stack": "cpp"
+    "stack": "cpp",
+    "filesystem": "cpp",
+    "list": "cpp",
+    "__tree": "cpp"
   },
   "C_Cpp_Runner.cCompilerPath": "gcc",
   "C_Cpp_Runner.cppCompilerPath": "g++",
