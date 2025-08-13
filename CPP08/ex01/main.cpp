@@ -1,9 +1,8 @@
 #include "Span.hpp"
 
-
 int main()
 {
-Span sp = Span(5);
+Span sp = Span(10);
 sp.addNumber(6);
 sp.addNumber(3);
 sp.addNumber(17);
