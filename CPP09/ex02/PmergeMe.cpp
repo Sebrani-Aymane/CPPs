@@ -28,11 +28,12 @@ bool PmergeMe::is_sorted(std::vector<unsigned long long> &data)
 
 std::vector<int> generate_jacobsthal_order(int n) {
     std::vector<int> order;
-    if (n <= 0) return order;
-
+    if (n <= 0) 
+        return order;
     std::vector<int> jac;
     jac.push_back(0);
-    if (n > 1) jac.push_back(1);
+    if (n > 1) 
+        jac.push_back(1);
     while (true) {
         int next = jac.back() + 2 * jac[jac.size() - 2];
         if (next >= n) break;
@@ -108,16 +109,14 @@ void PmergeMe::handle_mid(std::vector<unsigned long long> &data, int *pairs)
     if (!pend.empty()) {
         data.insert(data.begin(), pend[0]);
         std::vector<int> insertion_order = generate_jacobsthal_order(static_cast<int>(pend.size()));
-        for (std::vector<int>::size_type idx = 0; idx < insertion_order.size(); ++idx) {
+        for (size_t idx = 0; idx < insertion_order.size(); ++idx) {
             int pend_index = insertion_order[idx];
             if (pend_index == 0)
                 continue;
-            std::vector<unsigned long long>::iterator it =
-                std::lower_bound(data.begin(), data.end(), pend[pend_index]);
+            std::vector<unsigned long long>::iterator it = std::lower_bound(data.begin(), data.end(), pend[pend_index]);
             data.insert(it, pend[pend_index]);
         }
     }
-
     if (pair_sz > 1 && !is_sorted(data)) {
         *pairs = pair_sz / 2;
         handle_mid(data, pairs);
