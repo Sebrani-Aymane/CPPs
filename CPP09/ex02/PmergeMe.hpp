@@ -7,6 +7,9 @@
 #include <vector>
 #include <algorithm>
 #include <cstdlib>
+#include <deque>
+#include <ctime>
+
 class PmergeMe{
     private:
         std::vector<unsigned long long> data;
