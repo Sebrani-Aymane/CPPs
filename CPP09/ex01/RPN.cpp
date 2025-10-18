@@ -1,5 +1,5 @@
 #include "RPN.hpp"
-
+#include <limits>
 RPN::RPN(){
     // tokens.push("");
 }
@@ -13,11 +13,11 @@ RPN &RPN::operator=(const RPN &other){
     return *this;
 }
 RPN::~RPN(){}
-void handle_tokens(std::stack<std::string>& tokens)
+bool handle_tokens(std::stack<std::string>& tokens)
 {
 
     if (tokens.size() < 3)
-        return;
+        return false;
     
     std::string operation = tokens.top();
     tokens.pop();
@@ -34,10 +34,15 @@ void handle_tokens(std::stack<std::string>& tokens)
         result = operand1 * operand2;
     else if (operation == "/")
         result = operand1 / operand2;
-    
+    if (result < std::numeric_limits<long> ::min() ||result >std::numeric_limits<long> ::max() )
+        {
+                std::cout << "Error:result too big/smal" << std::endl;
+                return false;
+            }
     std::stringstream ss;
     ss << result;
     tokens.push(ss.str());
+    return true;
 }
 void RPN::handle_data(const std::string args)
 {
@@ -55,13 +60,14 @@ void RPN::handle_data(const std::string args)
                 return;
             }
             tokens.push(token);
-            handle_tokens(tokens);
+            if (!handle_tokens(tokens))
+                return;
         }
         else
         {
             char* endptr;
             double digit = std::strtod(token.c_str(), &endptr);
-            if (*endptr != '\0' || digit>9)
+            if (*endptr != '\0' || digit > 9 || digit < -9)
             {
                 std::cout << "Error: bad input" << std::endl;
                 return;

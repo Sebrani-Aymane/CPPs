@@ -18,9 +18,7 @@ class PmergeMe{
     PmergeMe(const PmergeMe &other);
     PmergeMe &operator=(const PmergeMe &other);
     ~PmergeMe();
-    void parse_data(std::vector<unsigned long long> &data,int *pairs);
-    void handle_mid(std::vector<unsigned long long> &data,int *pairs);
-    bool is_sorted(std::vector<unsigned long long> &data);
+
 
 };
 

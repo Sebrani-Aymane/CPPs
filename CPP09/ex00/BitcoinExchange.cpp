@@ -1,137 +1,177 @@
 #include "BitcoinExchange.hpp"
 
 BitcoinExchange::BitcoinExchange()
-{}
+{
+}
 BitcoinExchange::BitcoinExchange(const BitcoinExchange &other)
 {
-        *this = other;
+    *this = other;
 }
 BitcoinExchange &BitcoinExchange::operator=(const BitcoinExchange &other)
 {
-        if (this!=&other)
-            this->data = other.data;
-        return *this;
+    if (this != &other)
+        this->data = other.data;
+    return *this;
 }
-BitcoinExchange::~BitcoinExchange(){}
+BitcoinExchange::~BitcoinExchange() {}
 
 bool isLeap(int year)
 {
-        return (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
+    return (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
 }
-bool parseDatevalue(std::string date,double value)
+bool parseDatevalue(std::string date, double value)
 {
-        while (date[0]==' ')
-                date.erase(0,1);
-        if (date[4]!='-'|| date[7]!='-'){
-                std::cout <<"invalid date Format \"yyyy-mm-dd\""<<std::endl;
+    if (date[4] != '-' || date[7] != '-' || date.length() != 10)
+    {
+        std::cout << "invalid date Format \"yyyy-mm-dd\"" << std::endl;
         return false;
-        }
-        int year = std::strtod(date.substr(0,4).c_str(),NULL);
-        int month = std::strtod(date.substr(5,2).c_str(),NULL);
-        int day = std::strtod(date.substr(8,2).c_str(),NULL);
+    }
+    char *ptr;
 
-        if (year < 2009 || month < 1 || month > 12 || day < 1 || day > 31)
+    int year = std::strtod(date.substr(0, 4).c_str(), &ptr);
+    if (*ptr != '\0')
+    {
+        std::cout << "invalid date Format \"yyyy-mm-dd\"" << std::endl;
+        return false;
+    }
+    int month = std::strtod(date.substr(5, 2).c_str(), &ptr);
+    if (*ptr != '\0')
+    {
+        std::cout << "invalid date Format \"yyyy-mm-dd\"" << std::endl;
+        return false;
+    }
+    int day = std::strtod(date.substr(8, 2).c_str(), &ptr);
+    if (*ptr != '\0')
+    {
+        std::cout << "invalid date Format \"yyyy-mm-dd\"" << std::endl;
+        return false;
+    }
+    if (year < 2009 || month < 1 || month > 12 || day < 1 || day > 31)
+    {
+        std::cout << "Error: bad date input => " << date << " (Range invalid)" << std::endl;
+        return false;
+    }
+    int daysofmonths[] = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+    if (month == 2 && isLeap(year))
+    {
+        if (day > 29)
         {
-            std::cout << "Error: bad date input => " << date << " (Range invalid)" << std::endl;
-            return false ;
+            std::cout << "Error: bad date input => " << date << " (Not a valid day in leap February)" << std::endl;
+            return false;
         }
-        int daysofmonths[] = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-        if (month == 2 && isLeap(year))
-        {
-            if (day > 29)
-            {
-                std::cout << "Error: bad date input => " << date << " (Not a valid day in leap February)" << std::endl;
-                return false ;
-            }
-        }
-        else if (day > daysofmonths[month])
-        {
-            std::cout << "Error: bad date input => " << date << " (Not a valid day in month)" << std::endl;
-            return false ;
-        }
-        if (year == 2009 && month == 1 && day <2)
-        {
-                std::cout << "Error: date is before minimum allowed date 2009-01-02 => " << date<< std::endl;
-                return false;
-        }
-         if (value<0)
-         {
-                 std::cout << "Error: not a positive number."<<std::endl;
-return false;
-         }
-        else if (value >1000)
-             {
-                     std::cout <<"Error: too large a number." <<std::endl;
-return false;
-             }  
-        return true;
-
+    }
+    else if (day > daysofmonths[month])
+    {
+        std::cout << "Error: bad date input => " << date << " (Not a valid day in month)" << std::endl;
+        return false;
+    }
+    if (year == 2009 && month == 1 && day < 2)
+    {
+        std::cout << "Error: date is before minimum allowed date 2009-01-02 => " << date << std::endl;
+        return false;
+    }
+    if (value < 0)
+    {
+        std::cout << "Error: not a positive number." << std::endl;
+        return false;
+    }
+    else if (value > 1000)
+    {
+        std::cout << "Error: too large a number." << std::endl;
+        return false;
+    }
+    return true;
 }
 double BitcoinExchange::parsedata()
 {
-        std::ifstream inputFile("data.csv");
-    if (inputFile.is_open()) {
+    std::ifstream inputFile("data.csv");
+    if (inputFile.is_open())
+    {
         std::string line;
-        getline(inputFile,line);
+        getline(inputFile, line);
         if (line != "date,exchange_rate")
         {
-                std::cout <<"bad file header"<<std::endl;
-                inputFile.close();
-                return 1;
+            std::cout << "bad file header" << std::endl;
+            inputFile.close();
+            return 1;
         }
-        while (getline(inputFile, line)) {
-                size_t commaPos = line.find(',');
+        while (getline(inputFile, line))
+        {
+            size_t commaPos = line.find(',');
             if (commaPos == std::string::npos)
                 continue;
-            
+
             std::string date = line.substr(0, commaPos);
             double price = std::strtod(line.substr(commaPos + 1).c_str(), NULL);
             data[date] = price;
         }
         inputFile.close();
-    } else
+    }
+    else
         std::cout << "Failed to open the file." << std::endl;
     return 0;
 }
-double BitcoinExchange::getvalue(const std::string& date)
+double BitcoinExchange::getvalue(const std::string &date)
 {
 
     if (data.empty())
         return -1.0;
     std::map<std::string, double>::iterator it = data.lower_bound(date);
-    if (it == data.end()) 
-{
-       --it;
-       return it->second;
-}
-
-
-    if (it->first == date) {
+    if (it == data.end())
+    {
+        --it;
         return it->second;
     }
 
-    if (it == data.begin()) {
+    if (it->first == date)
+    {
+        return it->second;
+    }
+
+    if (it == data.begin())
+    {
         return -1.0;
     }
     --it;
     return it->second;
 }
-void  BitcoinExchange::parseline(std::string line)
+void BitcoinExchange::parseline(std::string line)
 {
-        size_t pipepos = line.find('|');
-        if (pipepos == std::string::npos)
+    size_t pipepos = line.find('|');
+    if (pipepos == std::string::npos || pipepos == 0 || pipepos == line.length() - 1)
+    {
+        std::cout << "Error: bad input => " << line << std::endl;
+        return;
+    }
+    char *ptr;
+    if (line[pipepos - 1] != ' ' || line[pipepos + 1] != ' ')
+    {
+        std::cout << "Error: bad input => " << line << std::endl;
+        return;
+    }
+    std::string date = line.substr(0, pipepos - 1);
+    std::string value_string = line.substr(pipepos + 2, line.size() - 1);
+    for (size_t i = 0; i < value_string.length(); i++)
+    {
+        if (!isdigit(value_string[i]))
         {
-                std::cout<<"Error: bad input => "<<line<<std::endl;
-                return;
-        }
-        char *ptr;
-        std::string date = line.substr(0,pipepos);
-        double value  = std::strtod(line.substr(pipepos+2,line.size()-1).c_str(),&ptr);
-        if (*ptr != '\0')
+            std::cout << "Error: bad input => " << line << std::endl;
             return;
-        if (!parseDatevalue(date,value))
-                return;
-        parsedata();
-        std::cout << date<<" => "<< value<< " = "<<value*getvalue(date)<<std::endl;
-
+        }
+    }
+    if (value_string.empty())
+    {
+        std::cout << "Error: bad input => " << line << std::endl;
+        return;
+    }
+    double value = std::strtod(value_string.c_str(), &ptr);
+    if (*ptr != '\0')
+    {
+        std::cout << "Error: bad input => " << line << std::endl;
+        return;
+    }
+    if (!parseDatevalue(date, value))
+        return;
+    parsedata();
+    std::cout << date << " => " << value << " = " << value * getvalue(date) << std::endl;
 }

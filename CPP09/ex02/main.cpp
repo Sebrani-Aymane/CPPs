@@ -1,13 +1,21 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <algorithm>
+#include <cstdlib>
 #include "PmergeMe.hpp"
 #include <stdexcept>
 #include <climits>
+#include <deque>
+#include <ctime>
+#include <cmath>
 
 template <typename T>
 T generate_jacobsthal_order(int n) {
     T order;
     if (n <= 0) 
         return order;
-    T jac;
+    std::vector<size_t> jac;
     jac.push_back(0);
     if (n > 1) 
         jac.push_back(1);
@@ -16,7 +24,6 @@ T generate_jacobsthal_order(int n) {
         if (next >= n) break;
         jac.push_back(next);
     }
-
     int prev = n;
     for (int i = jac.size() - 1; i >= 0; --i) {
         int j = jac[i];
@@ -25,10 +32,8 @@ T generate_jacobsthal_order(int n) {
         }
         prev = j;
     }
-
     return order;
 }
-
 template <typename T>
 bool is_sorted(T &data)
 {
@@ -39,6 +44,7 @@ bool is_sorted(T &data)
     }
     return true;
 }
+
 template <typename T>
 void parse_data(T  &data, int *pairs)
 {
@@ -52,7 +58,7 @@ void parse_data(T  &data, int *pairs)
         *pairs = datasize / 2;
         if (*pairs < 1)
             return;
-        pair_sz = *pairs;
+    pair_sz = *pairs;
     }
     for (int i = 0; i + 2 * pair_sz <=datasize; i += 2 * pair_sz)
     {
@@ -65,21 +71,9 @@ void parse_data(T  &data, int *pairs)
                 std::swap(data[i + j], data[i + pair_sz + j]);
         }
     }
-    if (pair_sz * 2 <= datasize / 2) {
+    if (pair_sz * 2 < datasize / 2 && !is_sorted(data) && pair_sz * 2 < datasize) {
         *pairs *= 2;
         parse_data(data, pairs);
-    }
-}
-template <typename T>
-void handle_mid(T &data, int *pairs)
-{
-    if (data.size() <= 1 || is_sorted(data))
-        return;
-
-    int pair_sz = *pairs;
-    if (pair_sz > static_cast<int>(data.size() / 2)) {
-        pair_sz = static_cast<int>(data.size() / 2);
-        if (pair_sz < 1) return;
     }
     T main_chain;
     T pend;
@@ -94,24 +88,27 @@ void handle_mid(T &data, int *pairs)
             pend.push_back(data[base + j]);
     }
     int remaining_start = complete_blocks * block_sz;
-    for (int i = remaining_start; i < static_cast<int>(data.size()); ++i)
+    for (size_t i = remaining_start; i < data.size(); ++i)
         pend.push_back(data[i]);
+    if (pair_sz == 1 && !main_chain.empty() && main_chain.size() > 1) {
+        int sub_pairs = 1;  
+        parse_data(main_chain, &sub_pairs);
+    }
     data = main_chain;
-    if (!pend.empty()) {
+    if (pend.size()>1) {
         data.insert(data.begin(), pend[0]);
         T  insertion_order = generate_jacobsthal_order<T>(static_cast<int>(pend.size()));
         for (size_t idx = 0; idx < insertion_order.size(); ++idx) {
             int pend_index = insertion_order[idx];
             if (pend_index == 0)
                 continue;
-            typename T ::iterator it = std::lower_bound(data.begin(), data.end(), pend[pend_index]);
-            data.insert(it, pend[pend_index]);
+            if (pend_index >= 0 && pend_index < static_cast<int>(pend.size())) {
+                typename T::iterator it = std::lower_bound(data.begin(), data.end(), pend[pend_index]);
+                data.insert(it, pend[pend_index]);
+            }
         }
     }
-    if (pair_sz > 1 && !is_sorted(data)) {
-        *pairs = pair_sz / 2;
-        handle_mid(data, pairs);
-    }
+    
 }
 
 int main(int ac,char **av)
@@ -147,20 +144,15 @@ int main(int ac,char **av)
     std::clock_t start, end ,startq,endq;
     double time_taken;
     double time_takenq;
-    PmergeMe pm;
     if (is_sorted(data) || is_sorted(dataq))
         return (std::cout <<"ur data is sorted "<<std::endl,1);
     std::cout <<std::endl;
     int pairs=1,pairss=1;
     start=std::clock();
     parse_data(data,&pairs);
-    pairs = data.size() / 2;
-    handle_mid(data,&pairs);
     end=std::clock();
     startq=std::clock();
     parse_data(dataq,&pairss);
-    pairss = dataq.size() / 2;
-    handle_mid(dataq,&pairss);
     endq=std::clock();
     time_taken = (double)(end - start)/1000000 ;
     time_takenq = (double)(endq - startq) /1000000 ;
@@ -176,6 +168,9 @@ int main(int ac,char **av)
         std::cout <<dataq[i]<< " ";
     }
     std::cout <<std::endl;
-        return 0;
+    if (is_sorted(data) && is_sorted(dataq))
+        std::cout <<"ur data is sorted "<<std::endl;
+    else
+        std::cout <<"ERROR: data not sorted!"<<std::endl;
+    return 0;
 }
-
