@@ -33,7 +33,15 @@ bool handle_tokens(std::stack<std::string>& tokens)
     else if (operation == "*")
         result = operand1 * operand2;
     else if (operation == "/")
+    {
+        if(operand2 == 0)
+        {
+            std::cout << "Error:can't devide by zero!" << std::endl;
+            return false;
+        }
         result = operand1 / operand2;
+
+    }
     if (result < std::numeric_limits<long> ::min() ||result >std::numeric_limits<long> ::max() )
         {
                 std::cout << "Error:result too big/smal" << std::endl;

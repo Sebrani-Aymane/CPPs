@@ -46,7 +46,7 @@ bool parseDatevalue(std::string date, double value)
         std::cout << "invalid date Format \"yyyy-mm-dd\"" << std::endl;
         return false;
     }
-    if (year < 2009 || month < 1 || month > 12 || day < 1 || day > 31)
+    if ( month < 1 || month > 12 || day < 1 || day > 31)
     {
         std::cout << "Error: bad date input => " << date << " (Range invalid)" << std::endl;
         return false;
@@ -63,11 +63,6 @@ bool parseDatevalue(std::string date, double value)
     else if (day > daysofmonths[month])
     {
         std::cout << "Error: bad date input => " << date << " (Not a valid day in month)" << std::endl;
-        return false;
-    }
-    if (year == 2009 && month == 1 && day < 2)
-    {
-        std::cout << "Error: date is before minimum allowed date 2009-01-02 => " << date << std::endl;
         return false;
     }
     if (value < 0)
@@ -130,7 +125,7 @@ double BitcoinExchange::getvalue(const std::string &date)
 
     if (it == data.begin())
     {
-        return -1.0;
+        return it->second;
     }
     --it;
     return it->second;
